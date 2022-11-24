@@ -31,6 +31,13 @@ class Test:
             value = yaml.load(f, yaml.FullLoader)
             return value[one_node][two_node]
 
+    # ∂¡»°config.yaml
+    def read_config_headers(self, one_node):
+        with open(f"{DATA_Config}" + './config.yaml', encoding='gb2312') as f:
+            value = yaml.load(f, yaml.FullLoader)
+            return value[one_node]
+
+
 # import requests
 # from utils.logging_tool.log_control import ERROR
 # from utils.other_tools.allure_data.allure_report_data import TestMetrics, AllureFileClean

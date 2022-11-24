@@ -1,0 +1,21 @@
+# DDT(data driver test)数据驱动yaml文件，对应的yaml测试用例文件为：register_data.yaml
+- ['name','url','method','headers','mobilePhone','accountName','password','confirmPassword','imgCode','smsVerificationCode', 'status_code', 'msg']
+- ['小昆山官网 - 输入正确的手机号密码是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','hhr123456','hhr123456', '123456', '123456', 200, 'success']
+- ['小昆山官网 - 输入错误的手机号格式是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','1111','abc','hhr123456','hhr123456', '123456', '123456', 200, '手机号格式不正确']
+- ['小昆山官网 - 不输入手机号码是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','','abc','hhr123456','hhr123456', '123456', '123456', 200, '手机号不能为空']
+- ['小昆山官网 - 不输入用户名是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','','hhr123456','hhr123456', '123456', '123456', 200, '用户名不能为空']
+- ['小昆山官网 - 不输入密码是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','','hhr123456', '123456', '123456', 200, '密码不能为空']
+- ['小昆山官网 - 输入密码的长度没有超过8个字符是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','hhr','hhr', '123456', '123456', 200, '密码只能包含字母、数字且长度需要在8和16之间']
+- ['小昆山官网 - 输入的密码为特殊字符是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','@@@@@@@@@@','@@@@@@@@@@', '123456', '123456', 200, '密码只能包含字母、数字且长度需要在8和16之间']
+- ['小昆山官网 - 输入密码的长度超过了16个字符是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','hhr12345678911111','hhr12345678911111', '123456', '123456', 200, '密码只能包含字母、数字且长度需要在8和16之间']
+- ['小昆山官网 - 不输入确认密码是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','hhr123456','', '123456', '123456', 200, '确认密码不能为空']
+- ['小昆山官网 - 密码和确认密码不一致是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','hhr123456','hhr1234567', '123456', '123456', 200, '两次密码不一致']
+- ['小昆山官网 - 不输入图片验证码是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','hhr123456','hhr123456', '', '123456', 200, '图片验证码不能为空']
+- ['小昆山官网 - 输入错误的图片验证码是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','hhr123456','hhr123456', '11111', '123456', 200, '图片验证码错误']
+- ['小昆山官网 - 不输入短信验证码是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','hhr123456','hhr123456', '11111', '', 200, '短信验证码不能为空']
+
+
+
+
+
+

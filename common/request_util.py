@@ -69,12 +69,14 @@ class RequestUtil:
                 # print("yaml基本架构检查通过")
                 log.info('yaml基本架构检查通过')
                 log.info(f'接口用例名称：{caseinfo["name"]}')
-                log.info(f'请求头：{caseinfo["headers"]}')
                 method = caseinfo['request'].pop("method")  # pop() 函数用于移除列表中的一个元素，并且返回该元素的值。
                 # print(f"method: {method}")
                 url = caseinfo['request'].pop("url")
                 log.info(f'请求方法：{method}')
-                log.info(f'替换前url请求地址：{url}')
+                url1 = self.base_url + self.replace_value(url)
+                log.info(f"url请求地址:  {url1}")
+                headers = self.replace_value(caseinfo["headers"])
+                log.info(f'请求头：{headers}')
                 log.info(f"请求参数：{caseinfo['request']}")
                 # print(f"替换前url: {url}")
                 res = self.send_request(method, url, **caseinfo['request'])  # caseinfo需要解包加**
@@ -140,20 +142,17 @@ class RequestUtil:
         method = str(method).lower()  # 转换小写
         # 基础路径的拼接和替换
         url = self.base_url + self.replace_value(url)
-        # print(f"替换后url:  {url}")
-        log.info(f"替换后url请求地址:  {url}")
+        # log.info(f"替换后url请求地址:  {url}")
         # print(f"method:  {method}")
         # 参数替换
         for key, value in kwargs.items():
             if key in ['params', 'data', 'json', 'headers']:
                 kwargs[key] = self.replace_value(value)
-                print(kwargs[key])
+                print(f'kwargs[key]: {kwargs[key]}')
             elif key == "files":
                 for file_key, file_path in value.items():
                     value[file_key] = open(file_path, 'rb')
         res = RequestUtil.sess.request(method, url, **kwargs)
-        # print(res.text)
-        # print(res.json())
         return res
 
     # 断言

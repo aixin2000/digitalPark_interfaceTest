@@ -1,0 +1,22 @@
+-
+  name: $ddt{name}
+  parameterize:
+    name-url-method-headers-mobilePhone-accountName-password-confirmPassword-imgCode-smsVerificationCode-status_code-msg: /ddt_data/get_register_data.yaml
+  headers: $ddt{headers}
+  request:
+    method: $ddt{method}
+    url: $ddt{url}
+    json: {
+           "mobilePhone": "$ddt{mobilePhone}",
+           "accountName": "$ddt{accountName}",
+           "password": "$ddt{password}",
+           "confirmPassword": "$ddt{confirmPassword}",
+           "imgCode": "$ddt{imgCode}",
+           "smsVerificationCode": "$ddt{smsVerificationCode}",
+           "status_code": "$ddt{status_code}",
+           "msg": "$ddt{msg}"
+    }
+  validate:
+#    - contains: success
+     - equals: {status_code: "$ddt{status_code}"}
+     - contains: $ddt{msg}

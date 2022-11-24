@@ -2,3 +2,16 @@
 base:
   base_test_url: http://park.test.hhrchina.com
   base_login_url: /account/login
+  base_register_url: /account/register
+
+# 请求头方式x-www-form-urlencoded
+headers-data:
+  Content-Type: "application/x-www-form-urlencoded;charset=UTF-8"
+  Accept: "application/json, text/plain, */*"
+  User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
+
+# 请求头方式application/json
+headers-json:
+  Content-Type: "application/json;charset=UTF-8"
+  Accept: "application/json, text/plain, */*"
+  User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
