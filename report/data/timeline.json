@@ -1,0 +1,49 @@
+{
+  "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+  "name" : "timeline",
+  "children" : [ {
+    "name" : "DESKTOP-D74IVM4",
+    "children" : [ {
+      "name" : "15384-MainThread",
+      "children" : [ {
+        "name" : "test_login[args_name2]",
+        "uid" : "20e2378cd0db3b11",
+        "parentUid" : "9e64637248a9acf5dcb024078222c7b8",
+        "status" : "passed",
+        "time" : {
+          "start" : 1669195734699,
+          "stop" : 1669195735525,
+          "duration" : 826
+        },
+        "flaky" : false,
+        "parameters" : [ "{'name': '小昆山官网 - 输入错误的密码是否能够正常登录', 'parameterize': {'name-account-password-assert_str-url-status_code-status-headers': '/ddt_data/get_login_data.yaml'}, 'headers': \"{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}\", 'request': {'method': 'POST', 'url': '${read_config(base,base_login_url)}/aa/hhr12345'}, 'validate': [{'equals': {'status_code': 200, 'msg': '账号或密码错误', 'status': 1001}}]}" ]
+      }, {
+        "name" : "test_login[args_name1]",
+        "uid" : "5fd279be6338c592",
+        "parentUid" : "9e64637248a9acf5dcb024078222c7b8",
+        "status" : "passed",
+        "time" : {
+          "start" : 1669195733897,
+          "stop" : 1669195734694,
+          "duration" : 797
+        },
+        "flaky" : false,
+        "parameters" : [ "{'name': '小昆山官网 - 输入错误的账号是否能够正常登录', 'parameterize': {'name-account-password-assert_str-url-status_code-status-headers': '/ddt_data/get_login_data.yaml'}, 'headers': \"{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}\", 'request': {'method': 'POST', 'url': '${read_config(base,base_login_url)}/a/hhr123456'}, 'validate': [{'equals': {'status_code': 200, 'msg': '账号或密码错误', 'status': 1001}}]}" ]
+      }, {
+        "name" : "test_login[args_name0]",
+        "uid" : "5999e74c6c477738",
+        "parentUid" : "9e64637248a9acf5dcb024078222c7b8",
+        "status" : "passed",
+        "time" : {
+          "start" : 1669195729655,
+          "stop" : 1669195733888,
+          "duration" : 4233
+        },
+        "flaky" : false,
+        "parameters" : [ "{'name': '小昆山官网 - 输入正确的账号密码是否能够正常登录', 'parameterize': {'name-account-password-assert_str-url-status_code-status-headers': '/ddt_data/get_login_data.yaml'}, 'headers': \"{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}\", 'request': {'method': 'POST', 'url': '${read_config(base,base_login_url)}/aa/hhr123456'}, 'validate': [{'equals': {'status_code': 200, 'msg': 'success', 'status': 0}}]}" ]
+      } ],
+      "uid" : "9e64637248a9acf5dcb024078222c7b8"
+    } ],
+    "uid" : "515ab8824ccf6155d638533a5756efe7"
+  } ]
+}

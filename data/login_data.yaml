@@ -1,0 +1,11 @@
+-
+  name: $ddt{name}
+  parameterize:
+    name-account-password-assert_str-url-status_code-status-headers: /ddt_data/get_login_data.yaml
+  headers: $ddt{headers}
+  request:
+    method: 'POST'
+    url: $ddt{url}/$ddt{account}/$ddt{password}
+  validate:
+#    - contains: success
+     - equals: {status_code: "$ddt{status_code}", msg: "$ddt{assert_str}", status: "$ddt{status}"}

@@ -1,0 +1,6 @@
+# DDT(data driver test)数据驱动yaml文件，对应的yaml测试用例文件为：login_data.yaml
+- ['name','account','password','assert_str','url','status_code','status', 'headers']
+- ['小昆山官网 - 输入正确的账号密码是否能够正常登录','aa','hhr123456','success','${read_config(base,base_login_url)}',200, 0, {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}]
+- ['小昆山官网 - 输入错误的账号是否能够正常登录','a','hhr123456','账号或密码错误','${read_config(base,base_login_url)}',200,1001, {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}]
+- ['小昆山官网 - 输入错误的密码是否能够正常登录','aa','hhr12345','账号或密码错误','${read_config(base,base_login_url)}',200,1001, {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}]
+
