@@ -16,6 +16,5 @@ DATA_Ddt = os.path.join(ROOT_DIR)
 DATA_Config = os.path.join(ROOT_DIR, 'test_cases')
 # ≤‚ ‘ª∑æ≥µÿ÷∑
 # HOST = 'http://hhr1.test.hhrchina.com'
-HOST = 'http://demo.hhrchina.com'
 
 print(DATA_Path)
