@@ -31,3 +31,4 @@ if __name__ == '__main__':
     log.info("这是一条info日志信息")
     log.warning("这是一条warning日志信息")
     log.critical("这是一条critical日志信息")
+    log.debug('测试忽略')
