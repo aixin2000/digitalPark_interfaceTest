@@ -27,13 +27,13 @@ def ddt(caseinfo):
         for param_key, param_value in caseinfo["parameterize"].items():
             key_list = param_key.split("-")
             # print("------key和value------")
-            print(key_list, param_value)
+            # print(key_list, param_value)
             length_flag = True
             # print("------data数据列表------")
             # 规范yaml数据文件的写法
             data_list = YamlUtil().read_data_yaml(f'{DATA_Ddt}' + param_value)
             for data in data_list:
-                print(data)
+                # print(data)
                 if len(data) != len(key_list):
                     length_flag = False
                     break
@@ -53,7 +53,7 @@ def ddt(caseinfo):
                             else:
                                 temp_caseinfo = temp_caseinfo.replace("$ddt{" + data_list[0][y] + "}",
                                                                       str(data_list[x][y]))
-                    print(temp_caseinfo)
+                    # print(temp_caseinfo)
 
                     new_caseinfo.append(json.loads(temp_caseinfo))
             return new_caseinfo
