@@ -1,15 +1,28 @@
+# coding=utf-8
 import pytest
 from common.yaml_util import YamlUtil
+from log.loggerController import log
 
 
 # @pytest.fixture(scope="function")
 # def exe_sql():
-#     print("ÓÃÀıÖ´ĞĞÖ®Ç°")
+#     print("ç”¨ä¾‹æ‰§è¡Œä¹‹å‰")
 #     yield
-#     print("ÓÃÀıÖ´ĞĞÖ®ºó")
+#     print("ç”¨ä¾‹æ‰§è¡Œä¹‹å")
 
 
-# ÔÚËùÓĞµÄ½Ó¿ÚÇëÇóÖ®Ç°Ö´ĞĞ
+# åœ¨æ‰€æœ‰çš„æ¥å£è¯·æ±‚ä¹‹å‰æ‰§è¡Œ
 @pytest.fixture(scope="session", autouse=True)
 def clear_extract():
     YamlUtil().clear_yaml()
+
+
+@pytest.fixture(scope="function", autouse=True)
+def setupteardown():
+    print('\n')
+    log.info('------------------------------ æ¥å£æµ‹è¯•å¼€å§‹æ‰§è¡Œ ------------------------------')
+    yield
+    log.info('------------------------------ æ¥å£æµ‹è¯•ç»“æŸ ------------------------------')
+
+
+

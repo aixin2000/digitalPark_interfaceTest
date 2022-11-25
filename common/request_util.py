@@ -35,7 +35,7 @@ class RequestUtil:
                     start_index = str_data.index("${")
                     end_index = str_data.index("}", start_index)
                     old_value = str_data[start_index:end_index + 1]
-                    print("old_value:" + old_value)
+                    # print("old_value:" + old_value)
                     # 反射：通过类的对象和方法字符串调用方法
                     func_name = old_value[2:old_value.index('(')]
                     args_value1 = old_value[old_value.index('(') + 1:old_value.index(')')]
@@ -46,7 +46,7 @@ class RequestUtil:
                     else:
                         new_value = getattr(self.obj, func_name)()
                     str_data = str_data.replace(old_value, str(new_value))
-                    print(f"str_data: {str_data} ")
+                    # print(f"str_data: {str_data} ")
             # 还原数据类型
             if isinstance(data, dict) or isinstance(data, list):
                 data = json.loads(str_data)
@@ -57,14 +57,14 @@ class RequestUtil:
     # 规范yaml测试用例
     def standard_yaml(self, caseinfo):
         caseinfo_keys = caseinfo.keys()
-        print(f"caseinfo_keys : {caseinfo_keys}")
+        # print(f"caseinfo_keys : {caseinfo_keys}")
         # 判断一级关键字是否包含：name，request，validate
         if "name" in caseinfo_keys and "request" in caseinfo_keys and "validate" in caseinfo_keys:
             # 判断request下面是否包含：method、url
             request_keys = caseinfo["request"].keys()
             caseinfo_aa = caseinfo["request"]
-            print(f"request_keys : {request_keys}")
-            print(f"caseinfo : {caseinfo_aa}")
+            # print(f"request_keys : {request_keys}")
+            # print(f"caseinfo : {caseinfo_aa}")
             if "method" in request_keys and "url" in request_keys:
                 # print("yaml基本架构检查通过")
                 log.info('yaml基本架构检查通过')
@@ -91,7 +91,8 @@ class RequestUtil:
                     return_json = res.json()
                     log.info(f"响应json数据：{return_json}")
                 except Exception as e:
-                    print("extract返回的结果不是JSON格式")
+                    # print("extract返回的结果不是JSON格式")
+                    log.warning("extract返回的结果不是JSON格式")
                 log.info(f"预期结果：{caseinfo['validate']}")
                 # print(f"caseinfo['validate']: {caseinfo['validate']}")
                 # print(f"return_json: {type(return_json)}")
@@ -112,12 +113,12 @@ class RequestUtil:
                     for key, value in caseinfo["extract"].items():
                         if "(.*?)" in value or "(.+?)" in value:  # 正则表达式
                             zz_value = re.search(value, return_text)
-                            print(return_text)
-                            print(f"zz: {zz_value}")
+                            # print(return_text)
+                            # print(f"zz: {zz_value}")
                             if zz_value:
                                 extract_value = {key: zz_value.group(1)}
                                 YamlUtil().write_yaml(extract_value)
-                                print(f"extract_value : {extract_value}")
+                                # print(f"extract_value : {extract_value}")
                         else:  # jsonpath
                             try:
                                 resturn_json = res.json()
@@ -125,15 +126,19 @@ class RequestUtil:
                                 if js_value:
                                     extract_value = {key: js_value[0]}
                                     YamlUtil().write_yaml(extract_value)
-                                    print(extract_value)
+                                    # print(extract_value)
                             except Exception as e:
-                                print("extract返回的结果不是JSON格式,不能使用jsonpath提取")
+                                # print("extract返回的结果不是JSON格式,不能使用jsonpath提取")
+                                log.warning('extract返回的结果不是JSON格式,不能使用jsonpath提取')
                 return res
                 # 断言：
             else:
-                print("在request下必须包含method,url")
+                # print("在request下必须包含method,url")
+                log.critical('在request下必须包含method,url')
+
         else:
-            print("一级关键字必须包含name,request,validate")
+            # print("一级关键字必须包含name,request,validate")
+            log.critical('一级关键字必须包含name,request,validate')
 
     sess = requests.session()
 
@@ -148,7 +153,7 @@ class RequestUtil:
         for key, value in kwargs.items():
             if key in ['params', 'data', 'json', 'headers']:
                 kwargs[key] = self.replace_value(value)
-                print(f'kwargs[key]: {kwargs[key]}')
+                # print(f'kwargs[key]: {kwargs[key]}')
             elif key == "files":
                 for file_key, file_path in value.items():
                     value[file_key] = open(file_path, 'rb')
@@ -160,7 +165,7 @@ class RequestUtil:
         all_flag = 0
         for yq in yq_result:
             for key, value in yq.items():
-                print(key, value)
+                # print(key, value)
                 if key == "equals":
                     flag = self.equals_assert(value, return_code, sj_result)
                     all_flag = all_flag + flag
@@ -168,31 +173,37 @@ class RequestUtil:
                     flag = self.contains_assert(value, sj_result)
                     all_flag = all_flag + flag
                 else:
-                    print("框架暂不支持此段断言方式")
+                    # print("框架暂不支持此段断言方式")
+                    log.warning('框架暂不支持此段断言方式')
         assert all_flag == 0
 
     # 相等断言
     def equals_assert(self, value, return_code, sj_result):
         flag = 0
         for assert_key, assert_value in value.items():
-            print(assert_key, assert_value)
+            # print(assert_key, assert_value)
             if assert_key == "status_code":  # 状态断言
                 assert_value == return_code
                 if assert_value != return_code:
                     flag = flag + 1
-                    print("断言失败，返回的状态码不等于%s" % assert_value)
+                    # print("断言失败，返回的状态码不等于%s" % assert_value)
+                    log.critical("断言失败，返回的状态码不等于%s" % assert_value)
             else:
                 # list为实际json匹配出来的值
                 lists = jsonpath.jsonpath(sj_result, '$..%s' % assert_key)
-                print(f"lists: {lists}")
+                # print(f"lists: {lists}")
+                log.info(f"list为实际json匹配出来的值为: {lists}")
                 if lists:
                     if assert_value not in lists:
                         flag = flag + 1
-                        print("断言失败：" + assert_key + "不等于" + str(assert_value))
+                        # print("断言失败：" + assert_key + "不等于" + str(assert_value))
+                        log.critical("断言失败：" + assert_key + "不等于" + str(assert_value))
                 else:
                     flag = flag + 1
-                    print("断言失败：返回的结果不存在：" + assert_key)
-            print(f"assert_key: {assert_key},assert_value: {assert_value}")
+                    # print("断言失败：返回的结果不存在：" + assert_key)
+                    log.critical("断言失败：返回的结果不存在：" + assert_key)
+            # print(f"assert_key: {assert_key},assert_value: {assert_value}")
+            log.info(f"断言的assert_key: {assert_key},断言的assert_value: {assert_value}")
         return flag
 
     # 包含断言
@@ -200,6 +211,7 @@ class RequestUtil:
         flag = 0
         if value not in str(sj_result):
             flag = flag + 1
-            print("断言失败：返回的结果中不包含：" + value)
+            # print("断言失败：返回的结果中不包含：" + value)
+            log.critical("断言失败：返回的结果中不包含：" + value)
         return flag
 
