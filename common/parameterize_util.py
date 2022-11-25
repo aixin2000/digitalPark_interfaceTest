@@ -1,21 +1,19 @@
+# coding=utf-8
 import json
-# from common.yaml_util import YamlUtil
-import os
-import yaml
 import yaml
 from config.config import *
 
 
-# ¶ÁÈ¡²âÊÔÓÃÀı
+# è¯»å–æµ‹è¯•ç”¨ä¾‹
 from common.yaml_util import YamlUtil
 
 
 def read_testcase(yaml_name):
-    with open(f'{DATA_Path}' + yaml_name, mode='r', encoding='gb2312') as f:
+    with open(f'{DATA_Path}' + yaml_name, mode='r', encoding='utf-8') as f:
         caseinfo = yaml.load(f, yaml.FullLoader)
-        if len(caseinfo) >= 2:  # ÅĞ¶ÏyamlÓÃÀıÎÄ¼şÖĞÓĞ¼¸ÌõÓÃÀı£¬µ±ÓÃÀı´óÓÚµÈÓÚ2Ê±£¬Ö±½Ó·µ»Øcaseinfo
+        if len(caseinfo) >= 2:  # åˆ¤æ–­yamlç”¨ä¾‹æ–‡ä»¶ä¸­æœ‰å‡ æ¡ç”¨ä¾‹ï¼Œå½“ç”¨ä¾‹å¤§äºç­‰äº2æ—¶ï¼Œç›´æ¥è¿”å›caseinfo
             return caseinfo
-        else:  # µ±µÈÓÚ1Ê±£¬ÒòÎªÊı¾İÇı¶¯ºóµÄcaseinfoÊÇ×ÖµäÁĞ±íÎÒÃÇ¾ÍĞèÒª¶Ôcaseinfo½â°ü
+        else:  # å½“ç­‰äº1æ—¶ï¼Œå› ä¸ºæ•°æ®é©±åŠ¨åçš„caseinfoæ˜¯å­—å…¸åˆ—è¡¨æˆ‘ä»¬å°±éœ€è¦å¯¹caseinfoè§£åŒ…
             if "parameterize" in dict(*caseinfo).keys():
                 new_caseinfo = ddt(*caseinfo)
                 return new_caseinfo
@@ -28,27 +26,27 @@ def ddt(caseinfo):
         caseinfo_str = json.dumps(caseinfo)
         for param_key, param_value in caseinfo["parameterize"].items():
             key_list = param_key.split("-")
-            # print("------keyºÍvalue------")
+            # print("------keyå’Œvalue------")
             print(key_list, param_value)
             length_flag = True
-            # print("------dataÊı¾İÁĞ±í------")
-            # ¹æ·¶yamlÊı¾İÎÄ¼şµÄĞ´·¨
+            # print("------dataæ•°æ®åˆ—è¡¨------")
+            # è§„èŒƒyamlæ•°æ®æ–‡ä»¶çš„å†™æ³•
             data_list = YamlUtil().read_data_yaml(f'{DATA_Ddt}' + param_value)
             for data in data_list:
                 print(data)
                 if len(data) != len(key_list):
                     length_flag = False
                     break
-            # Ìæ»»Öµ
-            # print("------Ìæ»»Öµ------")
+            # æ›¿æ¢å€¼
+            # print("------æ›¿æ¢å€¼------")
             new_caseinfo = []
             if length_flag:
-                for x in range(1, len(data_list)):  # Ñ­»·Êı¾İµÄĞĞÊı
+                for x in range(1, len(data_list)):  # å¾ªç¯æ•°æ®çš„è¡Œæ•°
                     temp_caseinfo = caseinfo_str
-                    for y in range(0, len(data_list[x])):  # Ñ­»·Êı¾İÁĞ
+                    for y in range(0, len(data_list[x])):  # å¾ªç¯æ•°æ®åˆ—
                         if data_list[0][y] in key_list:
-                            # Ìæ»»Ô­Ê¼µÄyamlÀïÃæµÄ$ddt{}
-                            # Êı×ÖÀàĞÍÈ¥µô¡°¡±
+                            # æ›¿æ¢åŸå§‹çš„yamlé‡Œé¢çš„$ddt{}
+                            # æ•°å­—ç±»å‹å»æ‰â€œâ€
                             if isinstance(data_list[x][y], int) or isinstance(data_list[x][y], float):
                                 temp_caseinfo = temp_caseinfo.replace('"$ddt{' + data_list[0][y] + '}"',
                                                                       str(data_list[x][y]))

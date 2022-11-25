@@ -1,4 +1,4 @@
-# coding=gbk
+# coding=utf-8
 import jsonpath
 import requests
 import json
@@ -16,27 +16,27 @@ class RequestUtil:
         self.base_url = YamlUtil().read_config('base', two_node)
         self.obj = obj
 
-    # Ìæ»»ÖµµÄ·½·¨
-    # #(Ìæ»»url£¬params,data,json,headers)
-    # #(string£¬int,float,list,dict)
+    # æ›¿æ¢å€¼çš„æ–¹æ³•
+    # #(æ›¿æ¢urlï¼Œparams,data,json,headers)
+    # #(stringï¼Œint,float,list,dict)
     def replace_value(self, data):
         if data:
-            # ±£´æÊı¾İÀàĞÍ
+            # ä¿å­˜æ•°æ®ç±»å‹
             data_type = type(data)
-            # ÅĞ¶ÏÊı¾İÀàĞÍ×ª»»³Éstr
+            # åˆ¤æ–­æ•°æ®ç±»å‹è½¬æ¢æˆstr
             if isinstance(data, dict) or isinstance(data, list):
                 str_data = json.dumps(data)
             else:
                 str_data = str(data)
             # print(str_data)
             for cs in range(1, str_data.count('${') + 1):
-                # Ìæ»»
+                # æ›¿æ¢
                 if "${" in str_data and "}" in str_data:
                     start_index = str_data.index("${")
                     end_index = str_data.index("}", start_index)
                     old_value = str_data[start_index:end_index + 1]
                     print("old_value:" + old_value)
-                    # ·´Éä£ºÍ¨¹ıÀàµÄ¶ÔÏóºÍ·½·¨×Ö·û´®µ÷ÓÃ·½·¨
+                    # åå°„ï¼šé€šè¿‡ç±»çš„å¯¹è±¡å’Œæ–¹æ³•å­—ç¬¦ä¸²è°ƒç”¨æ–¹æ³•
                     func_name = old_value[2:old_value.index('(')]
                     args_value1 = old_value[old_value.index('(') + 1:old_value.index(')')]
                     new_value = ""
@@ -47,55 +47,55 @@ class RequestUtil:
                         new_value = getattr(self.obj, func_name)()
                     str_data = str_data.replace(old_value, str(new_value))
                     print(f"str_data: {str_data} ")
-            # »¹Ô­Êı¾İÀàĞÍ
+            # è¿˜åŸæ•°æ®ç±»å‹
             if isinstance(data, dict) or isinstance(data, list):
                 data = json.loads(str_data)
             else:
                 data = data_type(str_data)
         return data
 
-    # ¹æ·¶yaml²âÊÔÓÃÀı
+    # è§„èŒƒyamlæµ‹è¯•ç”¨ä¾‹
     def standard_yaml(self, caseinfo):
         caseinfo_keys = caseinfo.keys()
         print(f"caseinfo_keys : {caseinfo_keys}")
-        # ÅĞ¶ÏÒ»¼¶¹Ø¼ü×ÖÊÇ·ñ°üº¬£ºname£¬request£¬validate
+        # åˆ¤æ–­ä¸€çº§å…³é”®å­—æ˜¯å¦åŒ…å«ï¼šnameï¼Œrequestï¼Œvalidate
         if "name" in caseinfo_keys and "request" in caseinfo_keys and "validate" in caseinfo_keys:
-            # ÅĞ¶ÏrequestÏÂÃæÊÇ·ñ°üº¬£ºmethod¡¢url
+            # åˆ¤æ–­requestä¸‹é¢æ˜¯å¦åŒ…å«ï¼šmethodã€url
             request_keys = caseinfo["request"].keys()
             caseinfo_aa = caseinfo["request"]
             print(f"request_keys : {request_keys}")
             print(f"caseinfo : {caseinfo_aa}")
             if "method" in request_keys and "url" in request_keys:
-                # print("yaml»ù±¾¼Ü¹¹¼ì²éÍ¨¹ı")
-                log.info('yaml»ù±¾¼Ü¹¹¼ì²éÍ¨¹ı')
-                log.info(f'½Ó¿ÚÓÃÀıÃû³Æ£º{caseinfo["name"]}')
-                method = caseinfo['request'].pop("method")  # pop() º¯ÊıÓÃÓÚÒÆ³ıÁĞ±íÖĞµÄÒ»¸öÔªËØ£¬²¢ÇÒ·µ»Ø¸ÃÔªËØµÄÖµ¡£
+                # print("yamlåŸºæœ¬æ¶æ„æ£€æŸ¥é€šè¿‡")
+                log.info('yamlåŸºæœ¬æ¶æ„æ£€æŸ¥é€šè¿‡')
+                log.info(f'æ¥å£ç”¨ä¾‹åç§°ï¼š{caseinfo["name"]}')
+                method = caseinfo['request'].pop("method")  # pop() å‡½æ•°ç”¨äºç§»é™¤åˆ—è¡¨ä¸­çš„ä¸€ä¸ªå…ƒç´ ï¼Œå¹¶ä¸”è¿”å›è¯¥å…ƒç´ çš„å€¼ã€‚
                 # print(f"method: {method}")
                 url = caseinfo['request'].pop("url")
-                log.info(f'ÇëÇó·½·¨£º{method}')
+                log.info(f'è¯·æ±‚æ–¹æ³•ï¼š{method}')
                 url1 = self.base_url + self.replace_value(url)
-                log.info(f"urlÇëÇóµØÖ·:  {url1}")
+                log.info(f"urlè¯·æ±‚åœ°å€:  {url1}")
                 headers = self.replace_value(caseinfo["headers"])
-                log.info(f'ÇëÇóÍ·£º{headers}')
-                log.info(f"ÇëÇó²ÎÊı£º{caseinfo['request']}")
-                # print(f"Ìæ»»Ç°url: {url}")
-                res = self.send_request(method, url, **caseinfo['request'])  # caseinfoĞèÒª½â°ü¼Ó**
+                log.info(f'è¯·æ±‚å¤´ï¼š{headers}')
+                log.info(f"è¯·æ±‚å‚æ•°ï¼š{caseinfo['request']}")
+                # print(f"æ›¿æ¢å‰url: {url}")
+                res = self.send_request(method, url, **caseinfo['request'])  # caseinfoéœ€è¦è§£åŒ…åŠ **
                 return_text = res.text
                 return_code = res.status_code
-                log.info(f"ÏìÓ¦ÎÄ±¾£º{return_text}")
-                log.info(f"ÏìÓ¦×´Ì¬Âë£º{return_code}")
+                log.info(f"å“åº”æ–‡æœ¬ï¼š{return_text}")
+                log.info(f"å“åº”çŠ¶æ€ç ï¼š{return_code}")
                 # print(f"return_code: {return_code}")
                 # print(type(return_text))
                 return_json = ""
                 try:
                     return_json = res.json()
-                    log.info(f"ÏìÓ¦jsonÊı¾İ£º{return_json}")
+                    log.info(f"å“åº”jsonæ•°æ®ï¼š{return_json}")
                 except Exception as e:
-                    print("extract·µ»ØµÄ½á¹û²»ÊÇJSON¸ñÊ½")
-                log.info(f"Ô¤ÆÚ½á¹û£º{caseinfo['validate']}")
+                    print("extractè¿”å›çš„ç»“æœä¸æ˜¯JSONæ ¼å¼")
+                log.info(f"é¢„æœŸç»“æœï¼š{caseinfo['validate']}")
                 # print(f"caseinfo['validate']: {caseinfo['validate']}")
                 # print(f"return_json: {type(return_json)}")
-                # print(f"return_jsonÖµ: {return_json}")
+                # print(f"return_jsonå€¼: {return_json}")
 
                 self.assert_result(caseinfo['validate'], return_json, return_code)
                 # if caseinfo['validate'] != "none":
@@ -107,10 +107,10 @@ class RequestUtil:
                 # elif return_json is dict:
                 #     self.assert_result(caseinfo['validate'], return_json, return_code)
 
-                # ÌáÈ¡Öµ²¢Ğ´Èëextract.yamlÎÄ¼ş
+                # æå–å€¼å¹¶å†™å…¥extract.yamlæ–‡ä»¶
                 if "extract" in caseinfo.keys():
                     for key, value in caseinfo["extract"].items():
-                        if "(.*?)" in value or "(.+?)" in value:  # ÕıÔò±í´ïÊ½
+                        if "(.*?)" in value or "(.+?)" in value:  # æ­£åˆ™è¡¨è¾¾å¼
                             zz_value = re.search(value, return_text)
                             print(return_text)
                             print(f"zz: {zz_value}")
@@ -127,24 +127,24 @@ class RequestUtil:
                                     YamlUtil().write_yaml(extract_value)
                                     print(extract_value)
                             except Exception as e:
-                                print("extract·µ»ØµÄ½á¹û²»ÊÇJSON¸ñÊ½,²»ÄÜÊ¹ÓÃjsonpathÌáÈ¡")
+                                print("extractè¿”å›çš„ç»“æœä¸æ˜¯JSONæ ¼å¼,ä¸èƒ½ä½¿ç”¨jsonpathæå–")
                 return res
-                # ¶ÏÑÔ£º
+                # æ–­è¨€ï¼š
             else:
-                print("ÔÚrequestÏÂ±ØĞë°üº¬method,url")
+                print("åœ¨requestä¸‹å¿…é¡»åŒ…å«method,url")
         else:
-            print("Ò»¼¶¹Ø¼ü×Ö±ØĞë°üº¬name,request,validate")
+            print("ä¸€çº§å…³é”®å­—å¿…é¡»åŒ…å«name,request,validate")
 
     sess = requests.session()
 
-    # Í³Ò»ÇëÇó·â×°
+    # ç»Ÿä¸€è¯·æ±‚å°è£…
     def send_request(self, method, url, **kwargs):
-        method = str(method).lower()  # ×ª»»Ğ¡Ğ´
-        # »ù´¡Â·¾¶µÄÆ´½ÓºÍÌæ»»
+        method = str(method).lower()  # è½¬æ¢å°å†™
+        # åŸºç¡€è·¯å¾„çš„æ‹¼æ¥å’Œæ›¿æ¢
         url = self.base_url + self.replace_value(url)
-        # log.info(f"Ìæ»»ºóurlÇëÇóµØÖ·:  {url}")
+        # log.info(f"æ›¿æ¢åurlè¯·æ±‚åœ°å€:  {url}")
         # print(f"method:  {method}")
-        # ²ÎÊıÌæ»»
+        # å‚æ•°æ›¿æ¢
         for key, value in kwargs.items():
             if key in ['params', 'data', 'json', 'headers']:
                 kwargs[key] = self.replace_value(value)
@@ -155,7 +155,7 @@ class RequestUtil:
         res = RequestUtil.sess.request(method, url, **kwargs)
         return res
 
-    # ¶ÏÑÔ
+    # æ–­è¨€
     def assert_result(self, yq_result, sj_result, return_code):
         all_flag = 0
         for yq in yq_result:
@@ -168,38 +168,38 @@ class RequestUtil:
                     flag = self.contains_assert(value, sj_result)
                     all_flag = all_flag + flag
                 else:
-                    print("¿ò¼ÜÔİ²»Ö§³Ö´Ë¶Î¶ÏÑÔ·½Ê½")
+                    print("æ¡†æ¶æš‚ä¸æ”¯æŒæ­¤æ®µæ–­è¨€æ–¹å¼")
         assert all_flag == 0
 
-    # ÏàµÈ¶ÏÑÔ
+    # ç›¸ç­‰æ–­è¨€
     def equals_assert(self, value, return_code, sj_result):
         flag = 0
         for assert_key, assert_value in value.items():
             print(assert_key, assert_value)
-            if assert_key == "status_code":  # ×´Ì¬¶ÏÑÔ
+            if assert_key == "status_code":  # çŠ¶æ€æ–­è¨€
                 assert_value == return_code
                 if assert_value != return_code:
                     flag = flag + 1
-                    print("¶ÏÑÔÊ§°Ü£¬·µ»ØµÄ×´Ì¬Âë²»µÈÓÚ%s" % assert_value)
+                    print("æ–­è¨€å¤±è´¥ï¼Œè¿”å›çš„çŠ¶æ€ç ä¸ç­‰äº%s" % assert_value)
             else:
-                # listÎªÊµ¼ÊjsonÆ¥Åä³öÀ´µÄÖµ
+                # listä¸ºå®é™…jsonåŒ¹é…å‡ºæ¥çš„å€¼
                 lists = jsonpath.jsonpath(sj_result, '$..%s' % assert_key)
                 print(f"lists: {lists}")
                 if lists:
                     if assert_value not in lists:
                         flag = flag + 1
-                        print("¶ÏÑÔÊ§°Ü£º" + assert_key + "²»µÈÓÚ" + str(assert_value))
+                        print("æ–­è¨€å¤±è´¥ï¼š" + assert_key + "ä¸ç­‰äº" + str(assert_value))
                 else:
                     flag = flag + 1
-                    print("¶ÏÑÔÊ§°Ü£º·µ»ØµÄ½á¹û²»´æÔÚ£º" + assert_key)
+                    print("æ–­è¨€å¤±è´¥ï¼šè¿”å›çš„ç»“æœä¸å­˜åœ¨ï¼š" + assert_key)
             print(f"assert_key: {assert_key},assert_value: {assert_value}")
         return flag
 
-    # °üº¬¶ÏÑÔ
+    # åŒ…å«æ–­è¨€
     def contains_assert(self, value, sj_result):
         flag = 0
         if value not in str(sj_result):
             flag = flag + 1
-            print("¶ÏÑÔÊ§°Ü£º·µ»ØµÄ½á¹ûÖĞ²»°üº¬£º" + value)
+            print("æ–­è¨€å¤±è´¥ï¼šè¿”å›çš„ç»“æœä¸­ä¸åŒ…å«ï¼š" + value)
         return flag
 
