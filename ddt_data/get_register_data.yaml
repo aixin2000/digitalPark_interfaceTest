@@ -13,9 +13,3 @@
 - ['小昆山官网 - 不输入图片验证码是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','hhr123456','hhr123456', '', '123456', 200, '图片验证码不能为空']
 - ['小昆山官网 - 输入错误的图片验证码是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','hhr123456','hhr123456', '11111', '123456', 200, '图片验证码错误']
 - ['小昆山官网 - 不输入短信验证码是否能够正常注册','${read_config(base,base_register_url)}','post','${read_config_headers(headers-json)}','${randomPhone()}','abc','hhr123456','hhr123456', '11111', '', 200, '短信验证码不能为空']
-
-
-
-
-
-

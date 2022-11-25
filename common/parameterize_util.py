@@ -9,7 +9,7 @@ from common.yaml_util import YamlUtil
 
 
 def read_testcase(yaml_name):
-    with open(f'{DATA_Path}' + yaml_name, mode='r', encoding='utf-8') as f:
+    with open(f'{DATA_Path}' + yaml_name, mode='r', encoding='GBK') as f:
         caseinfo = yaml.load(f, yaml.FullLoader)
         if len(caseinfo) >= 2:  # 判断yaml用例文件中有几条用例，当用例大于等于2时，直接返回caseinfo
             return caseinfo
@@ -53,7 +53,7 @@ def ddt(caseinfo):
                             else:
                                 temp_caseinfo = temp_caseinfo.replace("$ddt{" + data_list[0][y] + "}",
                                                                       str(data_list[x][y]))
-                    # print(temp_caseinfo)
+                    print(temp_caseinfo)
 
                     new_caseinfo.append(json.loads(temp_caseinfo))
             return new_caseinfo

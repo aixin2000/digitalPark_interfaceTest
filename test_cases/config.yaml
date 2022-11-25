@@ -3,6 +3,8 @@ base:
   base_test_url: http://park.test.hhrchina.com
   base_login_url: /account/login
   base_register_url: /account/register
+  base_park_information_url: /registerArea/getRegisterArea
+  base_park_settlement_url: /settledRequestNote/save
 
 # 请求头方式x-www-form-urlencoded
 headers-data:
