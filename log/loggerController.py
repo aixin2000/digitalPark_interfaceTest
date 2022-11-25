@@ -13,7 +13,7 @@ class ApiAutoLog():
         log_name = datetime.now().strftime("%Y-%m-%d")  # 以时间命名日志文件，格式为"年-月-日"
         sink = ROOT_DIR + "./logs/{}.log".format(log_name)  # 日志记录文件路径
         level = "DEBUG"  # 记录的最低日志级别为DEBUG
-        encoding = "utf-8"  # 写入日志文件时编码格式为utf-8
+        encoding = "gbk"  # 写入日志文件时编码格式为utf-8
         enqueue = True  # 多线程多进程时保证线程安全
         rotation = "5MB"  # 日志文件最大为500MB，超过则新建文件记录日志
         retention = "1 week"  # 日志保留时长为一星期，超时则清除
