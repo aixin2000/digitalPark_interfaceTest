@@ -1,0 +1,6 @@
+# DDT(data driver test)数据驱动yaml文件，对应的yaml测试用例文件为：park_announcement_data.yaml
+- ['name','url','method','headers','page','pageSize','search','type','status_code','msg']
+- ['小昆山官网 - 查询园区公告类型的资讯','${read_config(base,base_park_announcement_url)}','get','${read_config_headers(headers-data)}','1','10','','012-0182fd1fe3a82aae',200,'success']
+- ['小昆山官网 - 查询产业资讯类型的资讯','${read_config(base,base_park_announcement_url)}','get','${read_config_headers(headers-data)}','1','10','','012-0182fd1fe3aa2aaf',200,'success']
+- ['小昆山官网 - 查询常见问答类型的资讯','${read_config(base,base_park_announcement_url)}','get','${read_config_headers(headers-data)}','1','10','','012-0182fd1fe3aa2ab0',200,'success']
+- ['小昆山官网 - 使用资讯关键字查询资讯','${read_config(base,base_park_announcement_url)}','get','${read_config_headers(headers-data)}','1','10','技术','',200,'success']
