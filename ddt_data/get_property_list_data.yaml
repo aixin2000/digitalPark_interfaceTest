@@ -1,0 +1,9 @@
+# DDT(data driver test)数据驱动yaml文件，对应的yaml测试用例文件为：property_list_data.yaml
+- ['name','url','method','headers','page','pageSize','keyword','productType','capacityRangeId','areaRangeId','status_code','msg']
+- ['小昆山官网 - 查询招商载体的全部房源','${read_config(base,base_property_list_url)}','get','${read_config_headers(headers-data)}','1','12','','','','',200,'success']
+- ['小昆山官网 - 使用关键字查询招商载体的房源','${read_config(base,base_property_list_url)}','get','${read_config_headers(headers-data)}','1','12','小昆山','','','',200,'success']
+- ['小昆山官网 - 使用人数筛选条件查询招商载体的房源','${read_config(base,base_property_list_url)}','get','${read_config_headers(headers-data)}','1','12','','','capacity001','',200,'success']
+- ['小昆山官网 - 使用面积筛选条件查询招商载体的房源','${read_config(base,base_property_list_url)}','get','${read_config_headers(headers-data)}','1','12','','','','area001',200,'success']
+- ['小昆山官网 - 使用人数+关键字筛选条件查询招商载体的房源','${read_config(base,base_property_list_url)}','get','${read_config_headers(headers-data)}','1','12','小昆山','','capacity001','',200,'success']
+- ['小昆山官网 - 使用人数+关键字+面积筛选条件查询招商载体的房源','${read_config(base,base_property_list_url)}','get','${read_config_headers(headers-data)}','1','12','小昆山','','capacity001','area001',200,'success']
+- ['小昆山官网 - 使用人数+面积筛选条件查询招商载体的房源','${read_config(base,base_property_list_url)}','get','${read_config_headers(headers-data)}','1','12','','','capacity001','area001',200,'success']

@@ -5,6 +5,16 @@ base:
   base_register_url: /account/register
   base_park_information_url: /registerArea/getRegisterArea
   base_park_settlement_url: /settledRequestNote/save
+  base_home_investment_products_url: /parkServiceProduct/page?page=1&pageSize=3&token=50aa11de78ee5cb27381df1679f24e15&noCanClose=0&uid=&nickName=&phone=
+  base_home_listing_products_url: /propertyManagement/page?page=1&pageSize=3&token=50aa11de78ee5cb27381df1679f24e15&noCanClose=0&uid=&nickName=&phone=
+  base_home_park_announcement_url: /areaCompany/getCompanyNewsList?page=1&pageSize=7&search=&type=
+  base_product_list_url: /parkServiceProduct/page
+  base_product_details_url: /parkServiceProduct/getById
+  base_property_list_url: /propertyManagement/page
+  base_property_details_url: /propertyManagement/getById
+  base_park_announcement_url: /areaCompany/getCompanyNewsList
+  base_enterprise_list_url: /areaCompany/getCompanyList
+  base_enterprise_details_url: /areaCompany/getCompanyById
 
 # 请求头方式x-www-form-urlencoded
 headers-data:

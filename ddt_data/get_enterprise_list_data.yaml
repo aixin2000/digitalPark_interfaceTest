@@ -1,0 +1,8 @@
+# DDT(data driver test)数据驱动yaml文件，对应的yaml测试用例文件为：enterprise_list_data.yaml
+- ['name','url','method','headers','page','pageSize','search','ownerIndustry','claimStateId','status_code','msg']
+- ['小昆山官网 - 查询园区企业列表数据','${read_config(base,base_enterprise_list_url)}','get','${read_config_headers(headers-data)}','1','10','','','',200,'success']
+- ['小昆山官网 - 使用关键字查询园区企业','${read_config(base,base_enterprise_list_url)}','get','${read_config_headers(headers-data)}','1','10','上海个个信息科技有限公司','','',200,'success']
+- ['小昆山官网 - 使用所属行业查询园区企业','${read_config(base,base_enterprise_list_url)}','get','${read_config_headers(headers-data)}','1','10','','网络科技','',200,'success']
+- ['小昆山官网 - 查询未认领的园区企业','${read_config(base,base_enterprise_list_url)}','get','${read_config_headers(headers-data)}','1','10','','','012-0183123aeb5e2db7',200,'success']
+- ['小昆山官网 - 查询已认领的园区企业','${read_config(base,base_enterprise_list_url)}','get','${read_config_headers(headers-data)}','1','10','','','012-0183123c04f72db9',200,'success']
+- ['小昆山官网 - 查询认领中的园区企业','${read_config(base,base_enterprise_list_url)}','get','${read_config_headers(headers-data)}','1','10','','','012-01841d9a890e52d8',200,'success']

@@ -1,0 +1,20 @@
+-
+  name: $ddt{name}
+  parameterize:
+    name-url-method-headers-page-pageSize-keyword-productType-capacityRangeId-areaRangeId-status_code-msg: /ddt_data/get_property_list_data.yaml
+  headers: $ddt{headers}
+  request:
+    method: $ddt{method}
+    url: $ddt{url}
+    params:
+      page: $ddt{page}
+      pageSize: $ddt{pageSize}
+      keyword: $ddt{keyword}
+      productType: $ddt{productType}
+      capacityRangeId: $ddt{capacityRangeId}
+      areaRangeId: $ddt{areaRangeId}
+  extract:
+    propertyManagementId: $.data.list[0].propertyManagementId
+  validate:
+#    - contains: success
+     - equals: {status_code: "$ddt{status_code}", msg: "$ddt{msg}"}

@@ -1,0 +1,15 @@
+-
+  name: $ddt{name}
+  parameterize:
+    name-url-method-headers-page-pageSize-status_code-msg: /ddt_data/get_enterprise_list_data.yaml
+  headers: $ddt{headers}
+  request:
+    method: $ddt{method}
+    url: $ddt{url}
+    params:
+      page: $ddt{page}
+      pageSize: $ddt{pageSize}
+  extract:
+    companyId: $.data.companyId
+  validate:
+     - equals: {status_code: "$ddt{status_code}", msg: "$ddt{msg}"}

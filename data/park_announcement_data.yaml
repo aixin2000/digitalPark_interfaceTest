@@ -1,0 +1,15 @@
+-
+  name: $ddt{name}
+  parameterize:
+    name-url-method-headers-page-pageSize-search-type-status_code-msg: /ddt_data/get_park_announcement_data.yaml
+  headers: $ddt{headers}
+  request:
+    method: $ddt{method}
+    url: $ddt{url}
+    params:
+      page: $ddt{page}
+      pageSize: $ddt{pageSize}
+      search: $ddt{search}
+      type: $ddt{type}
+  validate:
+     - equals: {status_code: "$ddt{status_code}", msg: "$ddt{msg}"}

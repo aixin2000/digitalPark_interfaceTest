@@ -1,0 +1,11 @@
+-
+  name: $ddt{name}
+  parameterize:
+    name-url-method-headers-status_code-msg: /ddt_data/get_home_investment_products_data.yaml
+  headers: $ddt{headers}
+  request:
+    method: $ddt{method}
+    url: $ddt{url}
+  validate:
+#    - contains: success
+     - equals: {status_code: "$ddt{status_code}", data.page_size: "$ddt{msg}"}

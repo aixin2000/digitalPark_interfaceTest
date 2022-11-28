@@ -1,0 +1,19 @@
+-
+  name: $ddt{name}
+  parameterize:
+    name-url-method-headers-page-pageSize-keyword-productType-status_code-msg-contains-text: /ddt_data/get_product_list_data.yaml
+  headers: $ddt{headers}
+  request:
+    method: $ddt{method}
+    url: $ddt{url}
+    params:
+      page: $ddt{page}
+      pageSize: $ddt{pageSize}
+      keyword: $ddt{keyword}
+      productType: $ddt{productType}
+  extract:
+    parkServiceProductId: $.data.list[0].parkServiceProductId
+  validate:
+#    - contains: success
+     - equals: {status_code: "$ddt{status_code}", msg: "$ddt{msg}", "data.list[0].productTypeObj.text": "$ddt{text}"}
+     - contains: $ddt{contains}

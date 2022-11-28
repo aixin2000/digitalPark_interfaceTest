@@ -1,0 +1,6 @@
+# DDT(data driver test)数据驱动yaml文件，对应的yaml测试用例文件为：home_investment_products_data.yaml
+- ['name','url','method','headers','status_code','msg']
+- ['小昆山官网 - 查询首页的产业招商产品是否显示正确','${read_config(base,base_home_investment_products_url)}','get','${read_config_headers(headers-data)}',200,3]
+#- ['小昆山官网 - 输入错误的账号是否能够正常登录','${read_config(base,base_home_investment_products_url)}',200,1001, {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}]
+#- ['小昆山官网 - 输入错误的密码是否能够正常登录','${read_config(base,base_home_investment_products_url)}',200,1001, {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}]
+

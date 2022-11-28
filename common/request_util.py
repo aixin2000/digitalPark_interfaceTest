@@ -28,7 +28,7 @@ class RequestUtil:
                 str_data = json.dumps(data)
             else:
                 str_data = str(data)
-            # print(str_data)
+            # print(f'str_data:{str_data}')
             for cs in range(1, str_data.count('${') + 1):
                 # 替换
                 if "${" in str_data and "}" in str_data:
@@ -153,7 +153,7 @@ class RequestUtil:
         for key, value in kwargs.items():
             if key in ['params', 'data', 'json', 'headers']:
                 kwargs[key] = self.replace_value(value)
-                # print(f'kwargs[key]: {kwargs[key]}')
+                print(f'kwargs[key]: {kwargs[key]}')
             elif key == "files":
                 for file_key, file_path in value.items():
                     value[file_key] = open(file_path, 'rb')
@@ -165,7 +165,7 @@ class RequestUtil:
         all_flag = 0
         for yq in yq_result:
             for key, value in yq.items():
-                # print(key, value)
+                # print(f'预期结果key：{key},预期结果value{value}')
                 if key == "equals":
                     flag = self.equals_assert(value, return_code, sj_result)
                     all_flag = all_flag + flag
@@ -181,6 +181,7 @@ class RequestUtil:
     def equals_assert(self, value, return_code, sj_result):
         flag = 0
         for assert_key, assert_value in value.items():
+            # print(f'预期结果key:{assert_key},预期结果value:{assert_value}')
             # print(assert_key, assert_value)
             if assert_key == "status_code":  # 状态断言
                 assert_value == return_code
@@ -190,6 +191,7 @@ class RequestUtil:
                     log.critical("断言失败，返回的状态码不等于%s" % assert_value)
             else:
                 # list为实际json匹配出来的值
+                log.info(f'实际结果: {sj_result}')
                 lists = jsonpath.jsonpath(sj_result, '$..%s' % assert_key)
                 # print(f"lists: {lists}")
                 log.info(f"list为实际json匹配出来的值为: {lists}")

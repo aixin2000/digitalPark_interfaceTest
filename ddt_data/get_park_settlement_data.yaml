@@ -1,3 +1,6 @@
 # DDT(data driver test)数据驱动yaml文件，对应的yaml测试用例文件为：park_settlement_data.yaml
 - ['name','url','method','headers','companyName','contactWay','mainBusiness','estimatedProduceTax','otherExplain','status_code','msg']
 - ['小昆山官网 - 输入正确的入驻信息是否能够正常提交申请','${read_config(base,base_park_settlement_url)}','post','${read_config_headers(headers-json)}','fawfw','${randomPhone()}','fafwaf','fwaff','wf',200,'success']
+- ['小昆山官网 - 不输入企业名称是否能够正常提交申请','${read_config(base,base_park_settlement_url)}','post','${read_config_headers(headers-json)}','','${randomPhone()}','fafwaf','fwaff','wf',200,'企业名称不能为空']
+- ['小昆山官网 - 不输入联系方式是否能够正常提交申请','${read_config(base,base_park_settlement_url)}','post','${read_config_headers(headers-json)}','fwaf11','','fafwaf','fwaff','wf',200,'联系方式不能为空']
+- ['小昆山官网 - 不输入主营业务是否能够正常提交申请','${read_config(base,base_park_settlement_url)}','post','${read_config_headers(headers-json)}','fwaf11','${randomPhone()}','','fwaff','wf',200,'主营业务不能为空']

@@ -1,0 +1,6 @@
+# DDT(data driver test)数据驱动yaml文件，对应的yaml测试用例文件为：product_list_data.yaml
+- ['name','url','method','headers','page','pageSize','keyword','productType','status_code','msg','contains','text']
+- ['小昆山官网 - 查询招商服务列表全部产品','${read_config(base,base_product_list_url)}','get','${read_config_headers(headers-data)}','1','10','','',200,'success','','企业迁址']
+- ['小昆山官网 - 使用关键字查询园区服务产品列表产品','${read_config(base,base_product_list_url)}','get','${read_config_headers(headers-data)}','1','10','医疗','',200,'success','医疗','招商服务']
+- ['小昆山官网 - 使用产品类型查询园区服务产品列表产品','${read_config(base,base_product_list_url)}','get','${read_config_headers(headers-data)}','1','10','','012-0182fd64afe12ae5',200,'success','','招商服务']
+- ['小昆山官网 - 使用产品类型+关键字查询园区服务产品列表产品','${read_config(base,base_product_list_url)}','get','${read_config_headers(headers-data)}','1','10','医疗','012-0182fd64afe12ae5',200,'success','医疗','招商服务']

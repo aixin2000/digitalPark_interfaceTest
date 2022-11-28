@@ -13,10 +13,7 @@
            "confirmPassword": "$ddt{confirmPassword}",
            "imgCode": "$ddt{imgCode}",
            "smsVerificationCode": "$ddt{smsVerificationCode}",
-#           "status_code": "$ddt{status_code}",
-#           "msg": "$ddt{msg}"
     }
   validate:
-#    - contains: success
      - equals: {status_code: "$ddt{status_code}"}
      - contains: $ddt{msg}

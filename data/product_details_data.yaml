@@ -1,0 +1,13 @@
+-
+  name: $ddt{name}
+  parameterize:
+    name-url-method-headers-parkServiceProductId-status_code-msg: /ddt_data/get_product_details_data.yaml
+  headers: $ddt{headers}
+  request:
+    method: $ddt{method}
+    url: $ddt{url}
+    params:
+      parkServiceProductId: $ddt{parkServiceProductId}
+  validate:
+#    - contains: success
+     - equals: {status_code: "$ddt{status_code}", msg: "$ddt{msg}"}

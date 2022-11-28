@@ -1,0 +1,3 @@
+# DDT(data driver test)数据驱动yaml文件，对应的yaml测试用例文件为：home_park_announcement_data.yaml
+- ['name','url','method','headers','status_code','msg']
+- ['小昆山官网 - 查询首页的园区公告是否显示正确','${read_config(base,base_home_park_announcement_url)}','get','${read_config_headers(headers-data)}',200,7]
