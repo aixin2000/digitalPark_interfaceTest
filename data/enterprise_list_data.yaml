@@ -1,7 +1,7 @@
 -
   name: $ddt{name}
   parameterize:
-    name-url-method-headers-page-pageSize-status_code-msg: /ddt_data/get_enterprise_list_data.yaml
+    name-url-method-headers-page-pageSize-search-ownerIndustry-claimStateId-status_code-msg: /ddt_data/get_enterprise_list_data.yaml
   headers: $ddt{headers}
   request:
     method: $ddt{method}
@@ -9,6 +9,9 @@
     params:
       page: $ddt{page}
       pageSize: $ddt{pageSize}
+      search: $ddt{search}
+      ownerIndustry: $ddt{ownerIndustry}
+      claimStateId: $ddt{claimStateId}
   extract:
     companyId: $.data.companyId
   validate:
