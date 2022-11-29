@@ -1,0 +1,3 @@
+# DDT(data driver test)数据驱动yaml文件，对应的yaml测试用例文件为：my_message_data.yaml
+- ['name','url','method','headers','page','pageSize','status_code','msg']
+- ['小昆山官网 - 查询我的所有消息通知','${read_config(base,base_my_message_url)}','get','${read_config_headers(headers-data)}','1','10',200,'success']

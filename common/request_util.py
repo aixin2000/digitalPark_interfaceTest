@@ -5,6 +5,7 @@ import json
 from common.yaml_util import YamlUtil
 from builtins import str
 import re
+import allure
 from log.loggerController import log
 from debug_talk import DebugTalk
 from test import Test
@@ -69,6 +70,7 @@ class RequestUtil:
                 # print("yaml基本架构检查通过")
                 log.info('yaml基本架构检查通过')
                 log.info(f'接口用例名称：{caseinfo["name"]}')
+                allure.dynamic.title(caseinfo["name"])
                 method = caseinfo['request'].pop("method")  # pop() 函数用于移除列表中的一个元素，并且返回该元素的值。
                 # print(f"method: {method}")
                 url = caseinfo['request'].pop("url")

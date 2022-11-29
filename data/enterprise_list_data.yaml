@@ -13,6 +13,6 @@
       ownerIndustry: $ddt{ownerIndustry}
       claimStateId: $ddt{claimStateId}
   extract:
-    companyId: $.data.companyId
+    companyId: $.data.list[0].companyId
   validate:
      - equals: {status_code: "$ddt{status_code}", msg: "$ddt{msg}"}

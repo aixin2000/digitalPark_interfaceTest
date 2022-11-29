@@ -15,6 +15,7 @@ base:
   base_park_announcement_url: /areaCompany/getCompanyNewsList
   base_enterprise_list_url: /areaCompany/getCompanyList
   base_enterprise_details_url: /areaCompany/getCompanyById
+  base_my_message_url: /messageNotice/getMessageNoticeList
 
 # 请求头方式x-www-form-urlencoded
 headers-data:
