@@ -1,8 +1,6 @@
 import random
 import time
-
 import yaml
-
 from common.yaml_util import YamlUtil
 from config.config import DATA_Config
 
@@ -117,7 +115,7 @@ class Test:
 #
 #     def send_wechat_notification(self):
 #         """ 发送企业微信通知 """
-#         text = f"""【{config.project_name}自动化通知】
+#         text = f"""【{config.project_name}自动化通知】K
 #                                     >测试环境：<font color=\"info\">TEST</font>
 #                                     >测试负责人：@{config.tester_name}
 #                                     >

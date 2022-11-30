@@ -1,5 +1,6 @@
 *.pyc
-log/
-logs/
 result/
 report/
+.pytest_cache
+.idea
+*.log
